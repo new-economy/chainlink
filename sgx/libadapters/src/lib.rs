@@ -34,6 +34,7 @@ pub extern "C" fn init_enclave() {
     let result = panic::catch_unwind(|| {
         lazy_static::initialize(&ENCLAVE);
     });
+    set_errno(Errno(0));
     if result.is_err() {
         // Go uses the C _errno variable to get errors from C
         set_errno(Errno(1));

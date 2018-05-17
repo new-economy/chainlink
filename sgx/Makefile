@@ -92,8 +92,7 @@ $(ENCLAVE_STUB): target/$(ENVIRONMENT)/enclave_u.o
 
 $(LIBADAPTERS): libadapters/Cargo.toml $(wildcard libadapters/src/*.rs) $(ENCLAVE_STUB)
 	@printf -- '\nBuilding \e[1;36m$@\e[0m\n\n'
-	ENVIRONMENT=$(ENVIRONMENT) SGX_SDK=$(SGX_SDK) $(CARGO) build $(RUST_FLAGS) --manifest-path $<
-	#$(CXX) libadapters/$(LIBADAPTERS) -o $@ $(LIB_RS_LD_FLAGS)
+	SGX_SIMULATION=$(SGX_SIMULATION) ENVIRONMENT=$(ENVIRONMENT) SGX_SDK=$(SGX_SDK) $(CARGO) build $(RUST_FLAGS) --manifest-path $<
 	cp libadapters/$(LIBADAPTERS) $@
 
 # Enclave ---------------

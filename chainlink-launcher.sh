@@ -1,3 +1,3 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 /opt/intel/sgxpsw/aesm/aesm_service &
-chainlink $@
+./chainlink $@

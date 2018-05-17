@@ -33,11 +33,17 @@ fn main () {
     let sdk_dir = env::var("SGX_SDK")
                     .unwrap_or_else(|_| "/opt/intel/sgxsdk".to_string());
     let environment = env::var("ENVIRONMENT")
-                    .unwrap();
+                    .unwrap_or_else(|_| "release".to_string());
     
     println!("cargo:rustc-link-search=native=../target/{}", environment);
     println!("cargo:rustc-link-lib=static=enclave_u");
 
     println!("cargo:rustc-link-search=native={}/lib64", sdk_dir);
-    println!("cargo:rustc-link-lib=dylib=sgx_urts");
+
+    if env::var("SGX_SIMULATION").unwrap_or_default().contains("yes") {
+        println!("cargo:rustc-link-lib=dylib=sgx_urts_sim");
+        println!("cargo:rustc-link-lib=dylib=crypto");
+    } else {
+        println!("cargo:rustc-link-lib=dylib=sgx_urts");
+    }
 }
