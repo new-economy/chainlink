@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   geth:
     image: ethereum/client-go
     restart: on-failure
@@ -11,6 +12,7 @@ services:
       gethnet:
         ipv4_address: 172.16.1.100
     ports: []
+
   chainlink:
     image: smartcontract/chainlink
     command: node -d -p "T.tLHkcmwePT/p,]sYuntjwHKAsrhm#4eRs4LuKHwvHejWYAC2JP4M8HimwgmbaZ"
@@ -29,6 +31,8 @@ services:
         ipv4_address: 172.16.1.101
     depends_on:
       - geth
+    ports:
+      - 6688:6688
 
 networks:
   gethnet:
