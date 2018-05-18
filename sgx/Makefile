@@ -16,6 +16,7 @@ SGX_SIMULATION ?= no
 #
 
 CARGO ?= cargo
+XARGO ?= xargo
 SGX_BIN := $(SGX_SDK)/bin/x64
 SGX_EDGER8R := $(SGX_BIN)/sgx_edger8r
 SGX_ENCLAVE_SIGNER := $(SGX_BIN)/sgx_sign
@@ -104,6 +105,9 @@ $(RT_PATCH):
 
 $(ENCLAVE): enclave/Cargo.toml $(wildcard enclave/src/*.rs)
 	@printf -- '\nBuilding \e[1;36m$@\e[0m\n\n'
+	# XXX: Xargo doesn't appear to observe --manifest-path properly so cd into enclave/
+	# cd $(<D) && ENVIRONMENT=$(ENVIRONMENT) SGX_SDK=$(SGX_SDK) $(XARGO) build --target x86_64-unknown-linux-sgx $(RUST_FLAGS)
+	# cp enclave/x86_64-unknown-linux-sgx/$(ENCLAVE) $@
 	ENVIRONMENT=$(ENVIRONMENT) SGX_SDK=$(SGX_SDK) $(CARGO) build $(RUST_FLAGS) --manifest-path $<
 	cp enclave/$(ENCLAVE) $@
 

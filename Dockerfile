@@ -3,7 +3,9 @@ FROM baiduxlab/sgx-rust as ebuilder
 
 ADD ./sgx/ /root/sgx/
 WORKDIR /root/sgx
+# FIXME: path doesn't seem to be correct in this image so manually set CARGO/XARGO paths
 ENV CARGO /root/.cargo/bin/cargo
+ENV XARGO /root/.cargo/bin/xargo
 RUN SGX_SIMULATION=yes make
 
 # Build Chainlink in an ubuntu image, to make sure libssl1.0.0 is available
