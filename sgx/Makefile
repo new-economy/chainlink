@@ -46,7 +46,7 @@ ENCLAVE_RS_LIBS := -L./target/$(ENVIRONMENT) -lcompiler-rt-patch -lenclave
 ENCLAVE_RS_FLAGS := $(SGX_COMMON_CFLAGS) -nostdinc -fvisibility=hidden -fpie -fstack-protector $(ENCLAVE_RS_INCLUDE)
 ENCLAVE_RS_LD_FLAGS := $(SGX_COMMON_CFLAGS) -Wl,--no-undefined -nostdlib -nodefaultlibs -nostartfiles -L$(SGX_LIBRARY_PATH) \
 	-Wl,--whole-archive -l$(TRTS_LIB) -Wl,--no-whole-archive \
-	-Wl,--start-group -lsgx_tstdc -lsgx_tcrypto $(ENCLAVE_RS_LIBS) -Wl,--end-group \
+	-Wl,--start-group -lsgx_tstdc -lsgx_tstdcxx -lsgx_tcrypto $(ENCLAVE_RS_LIBS) -Wl,--end-group \
 	-Wl,-Bstatic -Wl,-Bsymbolic -Wl,--no-undefined \
 	-Wl,-pie,-eenclave_entry -Wl,--export-dynamic \
 	-Wl,--defsym,__ImageBase=0 \
