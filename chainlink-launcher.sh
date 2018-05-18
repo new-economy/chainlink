@@ -23,6 +23,8 @@ waitForResponse http://geth:18546
 chainlink_pid=$!
 
 while sleep 30; do
-  kill -0 $aesm_pid
+  if [ ! -eq $SGX_SIMULATION yes ]; then
+    kill -0 $aesm_pid
+  fi
   kill -0 $chainlink_pid
 done
