@@ -1,3 +1,3 @@
 void init_enclave();
-char * perform_http_get(char *url);
-char * perform_http_post(char *url, char *body);
+char * http_get(char *url);
+char * http_post(char *url, char *body);
