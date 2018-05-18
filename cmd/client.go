@@ -55,6 +55,7 @@ func (cli *Client) RunNode(c *clipkg.Context) error {
 	if err != nil {
 		return cli.errorOut(fmt.Errorf("error initializing SGX enclave: %+v", err))
 	}
+	logger.Infow("SGX Enclave Loaded")
 
 	app := cli.AppFactory.NewApplication(config)
 	store := app.GetStore()
