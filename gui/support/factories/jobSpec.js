@@ -1,8 +1,11 @@
 import uuid from 'uuid/v4'
 
 export default (jobs) => {
+  const j = jobs || []
+
   return {
-    data: (jobs || []).map((c) => {
+    meta: { count: j.length },
+    data: j.map((c) => {
       const config = c || {}
       const id = config.id || uuid().replace(/-/g, '')
       const initiators = config.initiators || [{'type': 'web'}]
